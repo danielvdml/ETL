@@ -1,6 +1,7 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import time
+import threading
 
 fecha=time.strftime("%d-%b-%y")
 data=open("Data/Smartphone_ML_pe_"+fecha+".csv","w")
@@ -27,7 +28,7 @@ while exit:
 			try:
 				htmlImage=urlopen(link)
 				objImage=BeautifulSoup(htmlImage,"html.parser")
-				itemImage=objImage("div",{"class":"first-image"})[0]			
+				itemImage=objImage.findAll("div",{"class":"first-image"})[0]			
 				imagen=itemImage.find("img")["src"]
 			except Exception as e:
 				imagen=""

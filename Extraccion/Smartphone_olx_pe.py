@@ -14,7 +14,7 @@ data.write("id|origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|l
 while exit:
 	i=i+1
 	if i%20==0:
-		time.sleep(random.int(30,60))
+		time.sleep(60)
 	url="http://www.olx.com.pe/telefonos-celulares-cat-831-p-"+str(i)
 	html=requests.get(url)
 	bsObj=BeautifulSoup(html.text,"html.parser")

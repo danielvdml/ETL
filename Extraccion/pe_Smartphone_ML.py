@@ -7,7 +7,7 @@ import threading
 # Argentina  http://celulares.mercadolibre.com.ar
 # Peru       http://celulares.mercadolibre.com.pe/_DisplayType_LF
 
-def worker(inicial,final,urls,data,pais):
+def worker(inicial,final,urls,data,error,pais):
 	for i in range(inicial,final):
 		html=urlopen(urls[i])
 		bsObj=BeautifulSoup(html,"html.parser")
@@ -69,28 +69,30 @@ def worker(inicial,final,urls,data,pais):
 				except Exception as e:
 					monedaSimbolo=""
 					moneda=""
+				try:
+					s="ML"+"|"+titulo+"|"+link+"|"+str(precio)+"|"+moneda+"|"+monedaSimbolo+"|"+condicion+"|"+imagen+"|"+tipoVendedor+"|"+cantidadVendida+"|"+pais+"|"+lugar+"\n"
+					data.write(s)
+				except Exception as e:
+					error.write(urls[i])
+						
 
-				s="ML"+"|"+titulo+"|"+link+"|"+str(precio)+"|"+moneda+"|"+monedaSimbolo+"|"+condicion+"|"+imagen+"|"+tipoVendedor+"|"+cantidadVendida+"|"+pais+"|"+lugar+"\n"
-				data.write(s)
-				print(s)
-			
-
-def main(nThreads):
+def main(nThreads,pais,dominio):
 	fecha=time.strftime("%d-%b-%y")
-	data=open("Data/Smartphone_ML_pe_"+fecha+".csv","w")
-	data.write("id|origen|titulo|link|precio|moneda|monedaSimbolo|tipoVendedor|condicion|cantidadVendida|pais|lugar\n")
+	error=open("Data/Smartphone_ML_"+dominio+"_"+fecha+".error.csv","w")
+	data=open("Data/Smartphone_ML_"+dominio+"_"+fecha+".csv","w")
+	data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|tipoVendedor|cantidadVendida|pais|lugar\n")
 	threads=list()
 	urls=list()
 	for NPage in range(1,13961,50):
-		urls.append("http://celulares.mercadolibre.com.pe/_Desde_"+str(NPage))
+		urls.append("http://celulares.mercadolibre.com."+dominio+"/_Desde_"+str(NPage))
 	N=len(urls)
 	for i in range(nThreads):
 		ini=int(N*(i-1)/nThreads)
 		fin=int(N*(i)/nThreads)
-		t=threading.Thread(target=worker,args=(ini,fin,urls,data,"peru",))
+		t=threading.Thread(target=worker,args=(ini,fin,urls,data,error,pais,))
 		threads.append(t)
 		t.start()
 	
 
-main(50)
+main(50,"Argentina","ar")
 

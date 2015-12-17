@@ -1,4 +1,3 @@
-
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import time
@@ -6,7 +5,7 @@ import json
 
 fecha=time.strftime('%d-%b-%y')
 data=open("Data/Smartphone_linio_pe_"+fecha+".csv","w")
-data.write("id|origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|preciOld\n")
+data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|preciOld\n")
 
 exit=True
 i=0
@@ -53,7 +52,7 @@ while exit:
 				moneda=""
 				monedaSimbolo=""
 			
-			s=str(cont)+"|"+"li"+"|"+titulo+"|"+link+"|"+precioNew+"|"+moneda+"|"+monedaSimbolo+"|"+condicion+"|"+imagen+"|"+precioOld+"\n" 
+			s="li"+"|"+titulo+"|"+link+"|"+precioNew+"|"+moneda+"|"+monedaSimbolo+"|"+condicion+"|"+imagen+"|"+precioOld+"\n" 
 			data.write(s)
 			print(s)
 	else:

@@ -118,7 +118,7 @@ int main(int n, char *args[]) {
         double mx = -1.0;
         string op;
         for (int x= 0; x < tipos.size(); x++) {
-            double nmx = msc(pls[4], tipos[x].second) / (tipos[x].second.size() + 0.0);
+            double nmx = msc(pls[2], tipos[x].second) / (tipos[x].second.size() + 0.0);
             nmx += 1.0 - cnt_partes()/(tipos[x].second.size() + 0.0);
             if (nmx >= mx) {
                 mx = nmx;

@@ -72,6 +72,7 @@ def worker(inicial,final,urls,data,error,pais):
 				try:
 					s="ML"+"|"+titulo+"|"+link+"|"+str(precio)+"|"+moneda+"|"+monedaSimbolo+"|"+condicion+"|"+imagen+"|"+tipoVendedor+"|"+cantidadVendida+"|"+pais+"|"+lugar+"\n"
 					data.write(s)
+					print(s)
 				except Exception as e:
 					error.write(urls[i])
 						
@@ -94,5 +95,5 @@ def main(nThreads,pais,dominio):
 		t.start()
 	
 
-main(50,"Argentina","ar")
+main(50,"Peru","pe")
 

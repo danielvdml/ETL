@@ -8,7 +8,6 @@ def worker(url,data):
 	bsObj=BeautifulSoup(html.text,"html.parser")
 	items=bsObj.findAll("li",{"class":"item"})
 	condicion="nuevo"
-
 	for item in items:
 
 		try:

@@ -47,7 +47,7 @@ def worker(url,data):
 
 def main(dominio):
 	fecha=time.strftime("%d-%b-%y")
-	data=open("Data/Smartphone_RS_"+dominio+"_"+fecha+".csv","w")
+	data=open("/home/ETL_v2/Extraccion/Data/Smartphone_RS_"+dominio+"_"+fecha+".csv","w")
 	data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen\n")
 	url="http://www.radioshackperu.com.pe/catalogo/telefonia/celulares-desbloqueados?page="
 	for i in range(1,4):

@@ -8,7 +8,7 @@ def worker(url,data):
 	bsObj=BeautifulSoup(html.text,"html.parser")
 	items=bsObj.findAll("li",{"class":"item"})
 	condicion="nuevo"
-	print(items)
+
 	for item in items:
 
 		try:
@@ -24,19 +24,20 @@ def worker(url,data):
 			if item.find("p",{"class":"special-price"}).find("span",{"class":"price"}).text.find("S/.")>=0:
 				moneda="S/."
 				monedaSimbolo="Sol"
-				precio=item.find("p",{"class":"special-price"}).find("span",{"class":"price"}).text.replace("S/.","").replace(".","").strip()
-			elif item.find("span",{"class":"regular-price"}).find("span",{"class":"price"}).text.find("S/.")>=0:
-				moneda="S/."
-				monedaSimbolo="Sol"
-				precio=item.find("span",{"class":"regular-price"}).find("span",{"class":"price"}).text.replace("S/.","").strip
+				precio=item.find("p",{"class":"special-price"}).find("span",{"class":"price"}).text.replace("S/.","").replace(",",".").strip()		     
 			else:
 				moneda=""
 				monedaSimbolo=""
 				precio="0.0"
 		except Exception as e:
-			moneda=""
-			monedaSimbolo=""
-			precio="0.0"
+			if item.find("span",{"class":"regular-price"}).find("span",{"class":"price"}).text.find("S/.")>=0:
+				moneda="S/."
+				monedaSimbolo="Sol"
+				precio=item.find("span",{"class":"regular-price"}).find("span",{"class":"price"}).text.replace("S/.","").replace(",",".").strip()
+			else:
+				moneda=""
+				monedaSimbolo=""
+				precio=""
 
 		try:
 			imagen=item.find("a",{"class":"product-image"}).find("img")["src"]
@@ -49,7 +50,7 @@ def worker(url,data):
 
 def main(dominio):
 	fecha=time.strftime("%d-%b-%y")
-	data=open("Data/Smartphone_LS_"+dominio+"_"+fecha+".csv","w")
+	data=open("/home/ETL_v2/Extraccion/Data/Smartphone_LS_"+dominio+"_"+fecha+".csv","w")
 	data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen\n")
 	url="https://www.loginstore.com/celulares-telefonia/smartphones?limit=all"
 	worker(url, data)

@@ -4,7 +4,7 @@ import time
 import json
 
 fecha=time.strftime('%d-%b-%y')
-data=open("Data/Smartphone_linio_pe_"+fecha+".csv","w")
+data=open("/home/ETL_v2/Extraccion/Data/Smartphone_linio_pe_"+fecha+".csv","w")
 data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|preciOld\n")
 
 exit=True

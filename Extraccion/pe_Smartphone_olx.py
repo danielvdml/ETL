@@ -6,15 +6,15 @@ import requests
 import random
 
 fecha=time.strftime("%d-%b-%y")
-data=open("Data/Smartphone_olx_pe_"+fecha+".csv","w")
+data=open("/home/ETL_v2/Extraccion/Data/Smartphone_olx_pe_"+fecha+".csv","w")
 i=0
 exit=True
 cont=0
-data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|lugar")
+data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|lugar\n")
 while exit:
 	i=i+1
 	if i%20==0:
-		time.sleep(random.int(30,60))
+		time.sleep(60)
 	url="http://www.olx.com.pe/telefonos-celulares-cat-831-p-"+str(i)
 	html=requests.get(url)
 	bsObj=BeautifulSoup(html.text,"html.parser")

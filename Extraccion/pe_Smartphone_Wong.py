@@ -45,7 +45,7 @@ def worker(url,data):
 
 def main():
 	s=time.strftime('%d-%b-%y')
-	data=open('Data/Smartphone_wong_pe_'+s+'.csv','w')
+	data=open('/home/ETL_v2/Extraccion/Data/Smartphone_wong_pe_'+s+'.csv','w')
 	data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen\n")
 	url="http://tienda.wong.com.pe/buscapagina?fq=C%3a%2f1000144%2f1000230%2f1000231%2f&PS=12&sl=ef3fcb99-de72-4251-aa57-71fe5b6e149f&cc=3&sm=0&PageNumber=1"	
 	worker(url,data)

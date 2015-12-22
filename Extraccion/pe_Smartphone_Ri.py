@@ -25,7 +25,7 @@ def worker(url,data):
 			if item.find("div",{"class":"product_price"}).find("div",{"class":"price"}).text.find("S/.")>=0:
 				moneda="S/."
 				monedaSimbolo="Sol"
-				precio=item.find("div",{"class":"product_price"}).find("div",{"class":"price"}).text.replace("S/.","").strip()
+				precio=item.find("div",{"class":"product_price"}).find("div",{"class":"price"}).text.replace("S/.","").replace(",","").strip()
 			else:
 				moneda=""
 				monedaSimbolo=""
@@ -46,7 +46,7 @@ def worker(url,data):
 
 def main(dominio):
 	fecha=time.strftime("%d-%b-%y")
-	data=open("Data/Smartphone_Ri_"+dominio+"_"+fecha+".csv","w")
+	data=open("/home/ETL_v2/Extraccion/Data/Smartphone_Ri_"+dominio+"_"+fecha+".csv","w")
 	data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen\n")
 	url="http://www.ripley.com.pe/ripley-peru/SearchDisplay?urlRequestType=Base&storeId=10751&catalogId=10101&langId=-24&categoryId=266188&urlLangId=-24&beginIndex=0&pageSize=133"
 	worker(url, data)

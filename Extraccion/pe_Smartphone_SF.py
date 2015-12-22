@@ -44,7 +44,7 @@ def worker(url,data):
 
 def main():
 	s=time.strftime('%d-%b-%y')
-	data=open('Data/Smartphone_SF_pe_'+s+'.csv','w')
+	data=open('/home/ETL_v2/Extraccion/Data/Smartphone_SF_pe_'+s+'.csv','w')
 	data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen\n")
 	url="http://www.falabella.com.pe/falabella-pe/category/cat40591/Celulares?No=0&Nrpp=48"	
 	worker(url,data)

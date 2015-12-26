@@ -21,17 +21,17 @@ def worker(url,data):
 
 		try:
 			if item.find("p",{"class":"special-price"}).find("span",{"class":"price"}).text.find("S/.")>=0:
-				moneda="S/."
-				monedaSimbolo="Sol"
-				precio=item.find("p",{"class":"special-price"}).find("span",{"class":"price"}).text.replace("S/.","").replace(",",".").strip()		     
+				moneda="Sol"
+				monedaSimbolo="S/."
+				precio=item.find("p",{"class":"special-price"}).find("span",{"class":"price"}).text.replace("S/.","").replace(",",".").strip()
 			else:
 				moneda=""
 				monedaSimbolo=""
 				precio="0.0"
 		except Exception as e:
 			if item.find("span",{"class":"regular-price"}).find("span",{"class":"price"}).text.find("S/.")>=0:
-				moneda="S/."
-				monedaSimbolo="Sol"
+				moneda="Sol"
+				monedaSimbolo="S/."
 				precio=item.find("span",{"class":"regular-price"}).find("span",{"class":"price"}).text.replace("S/.","").replace(",",".").strip()
 			else:
 				moneda=""
@@ -45,7 +45,6 @@ def worker(url,data):
 
 		s="LoginStore"+"|"+titulo+"|"+link+"|"+precio+"|"+moneda+"|"+monedaSimbolo+"|"+condicion+"|"+imagen+"\n"
 		data.write(s)
-		print(s)
 
 def main(dominio):
 	fecha=time.strftime("%d-%b-%y")

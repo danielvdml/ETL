@@ -9,9 +9,7 @@ def worker(url,data):
 	bsObj=BeautifulSoup(html.text,"html.parser")
 	items=bsObj.findAll("a",{"class":"item-t1"})
 	condicion="nuevo"
-	
 	for item in items:
-
 		try:
 			titulo=item.find("div",{"class":"text"}).text.strip()
 		except Exception as e:
@@ -22,10 +20,9 @@ def worker(url,data):
 			link=""
 
 		try:
-			
 			if item.find("div",{"class":"w-precio"}).text.find("S/.")>=0:
-				moneda="S/."
-				monedaSimbolo="Sol"
+				moneda="Sol"
+				monedaSimbolo="S/."
 				precio=item.find("div",{"class":"w-precio"}).text.replace("S/.","").replace(" ","").strip()
 			else:
 				moneda=""

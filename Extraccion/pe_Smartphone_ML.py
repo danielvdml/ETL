@@ -14,13 +14,13 @@ def worker(inicial,final,urls,data,error,pais):
 		items=bsObj.findAll("li",{"class":"list-view-item"})
 		for item in items:
 				try:
-					link=item.find("a",{"class":"item-link"})["href"]			
+					link=item.find("a",{"class":"item-link"})["href"]
 				except Exception as e:
 					link=""
 				try:
 					htmlImage=urlopen(link)
 					objImage=BeautifulSoup(htmlImage,"html.parser")
-					itemImage=objImage.findAll("div",{"class":"first-image"})[0]			
+					itemImage=objImage.findAll("div",{"class":"first-image"})[0]
 					imagen=itemImage.find("img")["src"]
 				except Exception as e:
 					imagen=""
@@ -75,7 +75,7 @@ def worker(inicial,final,urls,data,error,pais):
 					print(s)
 				except Exception as e:
 					error.write(urls[i])
-						
+
 
 def main(nThreads,pais,dominio):
 	fecha=time.strftime("%d-%b-%y")
@@ -93,7 +93,7 @@ def main(nThreads,pais,dominio):
 		t=threading.Thread(target=worker,args=(ini,fin,urls,data,error,pais,))
 		threads.append(t)
 		t.start()
-	
 
-main(50,"peru","pe")
+
+main(25,"peru","pe")
 

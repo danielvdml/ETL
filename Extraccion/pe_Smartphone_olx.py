@@ -14,7 +14,7 @@ data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|luga
 while exit:
     i=i+1
     if i%20==0:
-	time.sleep(60)
+        time.sleep(60)
     url="http://www.olx.com.pe/telefonos-celulares-cat-831-p-"+str(i)
     html=requests.get(url)
     bsObj=BeautifulSoup(html.text,"html.parser")
@@ -28,38 +28,38 @@ while exit:
                 link=""
             try:
                 imagen=item.find("img")["src"]
-                except Exception as e:
-		imagen=""
+            except Exception as e:
+                imagen=""
             try:
-		titulo=item.find("h3").text.strip()
-		if titulo.lower().find("nuevo"):
+                titulo=item.find("h3").text.strip()
+                if titulo.lower().find("nuevo"):
                     condicion="nuevo"
                 if titulo.lower().find("usado"):
                     condicion="usado"
             except Exception as e:
-		titulo=""
+                titulo=""
             try:
                 precio=item.find("p",{"class","items-price"}).text.replace("S/.","").replace(".","").replace("Negociable","").strip()
             except Exception as e:
                 precio="0.0"
             try:
-               lugar=item.find("span").text
+                lugar=item.find("span").text
             except Exception as e:
-		lugar=""
+                lugar=""
             try:
-		if item.find("p",{"class":"items-price"}).text.find("S/.")>0:
+                if item.find("p",{"class":"items-price"}).text.find("S/.")>0:
                     moneda="Sol"
                     monedaSimbolo="S/."
-	        if item.find("p",{"class":"items-price"}).text.find("$")>0:
-		    moneda="dolar"
-		    monedaSimbolo="$"
-		except Exception as e:
-		    moneda=""
-		    monedaSimbolo=""
-		s="olx"+"|"+titulo+"|"+link+"|"+precio+"|"+moneda+"|"+monedaSimbolo+"|"+condicion+"|"+imagen+"|"+lugar+"\n"
+                if item.find("p",{"class":"items-price"}).text.find("$")>0:
+                    moneda="dolar"
+                    monedaSimbolo="$"
+            except Exception as e:
+                moneda=""
+                monedaSimbolo=""
+            s="olx"+"|"+titulo+"|"+link+"|"+precio+"|"+moneda+"|"+monedaSimbolo+"|"+condicion+"|"+imagen+"|"+lugar+"\n"
             data.write(s)
     else:
-	exit=False
+        exit=False
 
 data.close()
 print("Fin")

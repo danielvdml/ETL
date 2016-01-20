@@ -46,6 +46,10 @@ def worker(inicial,final,urls,data,error,pais):
 
 				try:
 					condicion=item.find("li",{"class":"extra-info-condition"}).text
+					if condicion.find("nuevo"):
+						condicion="nuevo"
+					elif condicion.find("usado"):
+						condicion="usado"
 				except Exception as e:
 					condicion=""
 
@@ -84,7 +88,11 @@ def main(nThreads,pais,dominio):
 	data.write("origen|titulo|link|precio|moneda|monedaSimbolo|condicion|imagen|tipoVendedor|cantidadVendida|pais|lugar\n")
 	threads=list()
 	urls=list()
-	for NPage in range(1,13961,50):
+	html=urlopen("http://celulares.mercadolibre.com."+dominio+)
+	bsObj=BeautifulSoup(html,"html.parser")
+	page=bsObj.findAll("p",{"class":"page"})
+	n=int(page.find("strong").text)
+	for NPage in range(1,n,50):
 		urls.append("http://celulares.mercadolibre.com."+dominio+"/_Desde_"+str(NPage))
 	N=len(urls)
 	for i in range(nThreads):

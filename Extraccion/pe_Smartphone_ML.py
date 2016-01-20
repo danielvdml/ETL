@@ -9,9 +9,9 @@ import threading
 
 def worker(inicial,final,urls,data,error,pais):
 	for i in range(inicial,final):
-		html=urlopen(urls[i])
-		bsObj=BeautifulSoup(html,"html.parser")
-		items=bsObj.findAll("li",{"class":"list-view-item"})
+		html = urlopen(urls[i])
+		bsObj = BeautifulSoup(html,"html.parser")
+		items = bsObj.findAll("li",{"class":"list-view-item"})
 		for item in items:
 				try:
 					link=item.find("a",{"class":"item-link"})["href"]
@@ -79,6 +79,7 @@ def worker(inicial,final,urls,data,error,pais):
 					print(s)
 				except Exception as e:
 					error.write(urls[i])
+
 
 
 def main(nThreads,pais,dominio):

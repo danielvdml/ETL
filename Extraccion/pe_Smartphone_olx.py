@@ -32,6 +32,7 @@ while exit:
                 imagen=""
             try:
                 titulo=item.find("h3").text.strip()
+                titulo = titulo.replace("|", " ")
                 if titulo.lower().find("nuevo"):
                     condicion="nuevo"
                 if titulo.lower().find("usado"):
@@ -39,7 +40,7 @@ while exit:
             except Exception as e:
                 titulo=""
             try:
-                precio=item.find("p",{"class","items-price"}).text.replace("S/.","").replace(".","").replace("Negociable","").strip()
+                precio=item.find("p",{"class","items-price"}).text.replace("S/.","").replace("Negociable","").replace("USD", "").replace("$", "").strip()
             except Exception as e:
                 precio="0.0"
             try:
